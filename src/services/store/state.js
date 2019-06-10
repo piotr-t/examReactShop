@@ -5,13 +5,6 @@ import ProductService from "../ProductService";
 
 
 
-
-
-
-
-
-
-
 const handleFilterChange = filters => {
     const filteredProducts = ProductService.getProductsByFilter({
         name: filters.text,
