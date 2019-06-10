@@ -15,7 +15,8 @@ import ProductService from "../ProductService";
 const handleFilterChange = filters => {
     const filteredProducts = ProductService.getProductsByFilter({
         name: filters.text,
-        manufacture: filters.manufacture === "All" ? null : filters.manufacture
+        manufacture: filters.manufacture === "All" ? null : filters.manufacture,
+        category: filters.category
     });
     return filteredProducts;
 };
@@ -39,13 +40,16 @@ const handleFilterChange3 = () => {
 };
 
 const mapStateToProps = (state) => {
-    return { manufacturer: handleFilterChange(state.manufacturer) };
+    return {
+        manufacturer: handleFilterChange(state.manufacturer),
+        initFilters: { text: "", manufacture: "All" },
+        manufacturers: ["All", ...ProductService.getManufactures()]
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onManufacturer: (val) => dispatch({ type: 'MANUFACTURER_TEXT', manufacturer: val }),
-        onManufacturerHomePage: () => dispatch({ type: 'MANUFACTURER_HOMEPAGE' })
     }
 };
 
@@ -57,8 +61,9 @@ const mapStateToProps3 = () => {
     return { manufacturer: handleFilterChange3() };
 };
 
-export const ProductsList1 = connect(mapStateToProps, null)(ProductsList);
-export const Filters1 = connect(null, mapDispatchToProps)(Filters);
+
+export const ProductsList1 = connect(mapStateToProps, mapDispatchToProps)(ProductsList);
+export const Filters1 = connect(mapStateToProps, mapDispatchToProps)(Filters);
 
 
 export const ProductsList2 = connect(mapStateToProps2, null)(ProductsList);

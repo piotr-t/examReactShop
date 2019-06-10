@@ -1,19 +1,22 @@
 import React, { Component } from "react";
-
 import styles from "./Filters.module.css";
 
 class Filters extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: props.initValue.text,
-      manufacture: props.initValue.manufacture
-    };
 
+
+    this.state = {
+      text: props.initFilters.text,
+      manufacture: props.initFilters.manufacture
+    }
+
+    props.onManufacturer(this.state)
   }
 
   onChange = data => {
     this.setState({ ...data }, () => this.props.onManufacturer(this.state));
+
 
   };
 
@@ -24,7 +27,10 @@ class Filters extends Component {
     });
   };
 
+
+
   render() {
+
     const {
       state: { text, manufacture },
       props: { manufacturers }
