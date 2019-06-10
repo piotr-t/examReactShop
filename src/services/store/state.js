@@ -16,28 +16,12 @@ const handleFilterChange = filters => {
     const filteredProducts = ProductService.getProductsByFilter({
         name: filters.text,
         manufacture: filters.manufacture === "All" ? null : filters.manufacture,
-        category: filters.category
+        category: filters.category,
+        featured: filters.featured
     });
     return filteredProducts;
 };
 
-
-const handleFilterChange2 = () => {
-    const featuredDesktop = ProductService.getProductsByFilter({
-        category: "desktop",
-        featured: true
-    });
-    return featuredDesktop;
-};
-
-
-const handleFilterChange3 = () => {
-    const featuredTablet = ProductService.getProductsByFilter({
-        category: "tablet",
-        featured: true
-    });
-    return featuredTablet;
-};
 
 const mapStateToProps = (state) => {
     return {
@@ -55,10 +39,10 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const mapStateToProps2 = () => {
-    return { manufacturer: handleFilterChange2() };
+    return { manufacturer: handleFilterChange({ category: "desktop", featured: true }) };
 };
 const mapStateToProps3 = () => {
-    return { manufacturer: handleFilterChange3() };
+    return { manufacturer: handleFilterChange({ category: "tablet", featured: true }) };
 };
 
 
